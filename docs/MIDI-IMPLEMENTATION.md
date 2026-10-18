@@ -87,6 +87,5 @@ Part 11 shares CC numbers 108 to 115 (VPM) with part 10 (106 to 110) and part 12
 ## Open items
 
 1. CC value ranges, MSB/LSB use for the 14-bit master volume (7 and 39), and FX param meanings per effect type are not in the charts.
-2. Parts that have no pan or sends in single channel mode: the single-channel chart has no per-part Pan, Level (except via named level CCs) or sends.
-3. SysEx layout: Korg exclusive format is not in the manual; the logue SDK covers units, not patch data **(check)**.
-4. Internal swing is not reachable over MIDI (our earlier notes); not stated in the chart.
+2. SysEx layout: Korg exclusive format is not in the manual; the logue SDK covers units, not patch data **(check)**.
+3. Internal swing is not reachable over MIDI per our earlier notes; the charts do not list it.
