@@ -8,6 +8,7 @@ Controller plugin for the Korg drumlogue on Linux.
 Early work in progress. Free and open source. Donations welcome (link coming).
 
 ## Docs
+- [MIDI implementation](docs/MIDI-IMPLEMENTATION.md)
 - [Interactive mockups](docs/README.md)
 - [Roadmap](ROADMAP.md)
 
