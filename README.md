@@ -1,5 +1,7 @@
 # drumlogue Linux Controller 🐈
 
+<img src="assets/icon.svg" width="96" align="right" alt="icon">
+
 Controller plugin for the Korg drumlogue on Linux.
 
 ## Status
