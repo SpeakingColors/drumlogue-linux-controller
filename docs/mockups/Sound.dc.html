@@ -1,0 +1,944 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>drumlogue Controller · Sound</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700&amp;family=IBM+Plex+Mono:wght@500&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#ECEAE4}a:hover{color:#FFFFFF}
+</style>
+</helmet>
+<div style="display: flex; width: max-content; background: #0B0B0C"><div aria-hidden="true" class="wood-cheek" style="width: 34px; flex: none; align-self: stretch; background: repeating-linear-gradient(92deg,#5B3A22 0 3px,#6E4729 3px 7px,#4E3120 7px 9px,#77502F 9px 14px); box-shadow: inset -4px 0 8px rgba(0,0,0,0.6); border-radius: 6px 0 0 6px"></div><div style="position: relative; min-width: 1280px; width: max-content; height: auto; box-sizing: border-box; background: #131416; color: #ECEAE4; font-family: 'IBM Plex Sans', system-ui, sans-serif; padding: 18px 20px; display: flex; flex-direction: column; gap: 14px">
+<header style="display: flex; align-items: center; gap: 12px; height: 52px"><svg width="32" height="24" viewBox="0 0 40 30" aria-label="cat logo" style="flex:none"><path d="M5 26 L5 10 L10 4 L14 10 L26 10 L30 4 L35 10 L35 26" fill="none" stroke="#F28BA8" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"></path><path d="M14 18 h2 M24 18 h2 M2 20 l8 1 M2 24 l8 -1 M38 20 l-8 1 M38 24 l-8 -1" stroke="#F28BA8" stroke-width="1.6" stroke-linecap="round"></path></svg>
+<div style="display: flex; align-items: baseline; gap: 10px"><span style="font-size: 24px; font-weight: 700">drumlogue</span><span style="font-size: 12px; color: #B9B6AE">controller</span></div>
+<div title="What the drumlogue screen shows right now" style="display: flex; align-items: center; gap: 10px; height: 48px; padding: 0 10px; border-radius: 4px; background: #000; border: 2px solid #2B2D31; box-shadow: inset 0 0 12px rgba(255,255,255,0.06); min-width: 200px; font-family: VT323, 'IBM Plex Mono', monospace; color: #EDEFF2"><div style="display:flex;flex-direction:column;line-height:1.05"><span style="font-size: 17px; letter-spacing: 0.06em">A01 KOMPUTER</span><span style="font-size: 14px; color: #BFC3C9">BD&nbsp; DECAY&nbsp; 612</span></div><svg width="40" height="30" viewBox="0 0 58 30" preserveAspectRatio="none" aria-hidden="true"><rect x="0.5" y="0.5" width="57" height="29" fill="none" stroke="#5A5E66"/><path d="M3 26 L10 6 L22 14 L34 20 L46 23 L55 25" fill="none" stroke="#EDEFF2" stroke-width="1.4"/></svg></div>
+<div style="display: flex; gap: 8px; align-items: center; font-size: 12px; color: #B9B6AE">
+<span aria-hidden="true" style="width: 22px; height: 0; border-top: 3px solid #63D3C5"></span>Live over MIDI
+<span aria-hidden="true" style="width: 22px; height: 0; border-top: 3px dashed #63D3C5; margin-left: 10px"></span>Hidden setting · applied via kit sync
+</div>
+<nav aria-label="Pages" style="display: flex; gap: 4px; margin-left: auto; background: #0E0F11; padding: 5px; border-radius: 10px; border: 1px solid #34373D"><a href="Sound.dc.html" style="height: 34px; padding: 0 16px; border-radius: 8px; border: none; text-decoration: none; display: inline-flex; align-items: center; box-sizing: border-box; background: #ECEAE4; color: #1E1F23; font-family: inherit; font-size: 13px; font-weight: 700; letter-spacing: 0.04em; cursor: pointer">Sound</a><a href="FX.dc.html" style="height: 34px; padding: 0 16px; border-radius: 8px; border: none; text-decoration: none; display: inline-flex; align-items: center; box-sizing: border-box; background: transparent; color: #B9B6AE; font-family: inherit; font-size: 13px; font-weight: 700; letter-spacing: 0.04em; cursor: pointer">FX</a><a href="Main.dc.html" style="height: 34px; padding: 0 16px; border-radius: 8px; border: none; text-decoration: none; display: inline-flex; align-items: center; box-sizing: border-box; background: transparent; color: #B9B6AE; font-family: inherit; font-size: 13px; font-weight: 700; letter-spacing: 0.04em; cursor: pointer">Sequencer</a><a href="Mixer.dc.html" style="height: 34px; padding: 0 16px; border-radius: 8px; border: none; text-decoration: none; display: inline-flex; align-items: center; box-sizing: border-box; background: transparent; color: #B9B6AE; font-family: inherit; font-size: 13px; font-weight: 700; letter-spacing: 0.04em; cursor: pointer">Mixer</a></nav>
+<div style="display: flex; align-items: center; gap: 8px; font-size: 12px; color: #B9B6AE"><span aria-hidden="true" style="width: 9px; height: 9px; border-radius: 50%; background: #8FD48A"></span>USB · connected</div>
+<span style="display: flex; gap: 6px; margin-left: 8px"><button type="button" aria-label="UI size: drag any corner or edge to resize (aspect ratio kept); click to reset to 100%" title="UI size: drag any corner or edge to resize (aspect ratio kept); click to reset to 100%" style="height: 30px; padding: 0 8px; border-radius: 15px; border: 1px solid #6A6F7A; background: transparent; color: #CFCCC4; font-family: inherit; font-size: 11px; cursor: pointer; margin-left: 6px">⤡ 100%</button><button type="button" aria-label="What this plugin does" title="What this plugin does" style="width: 32px; height: 32px; border-radius: 50%; border: 1px solid #34373D; background: #26282C; color: #ECEAE4; font-family: inherit; font-size: 14px; font-weight: 700; cursor: pointer">i</button><button type="button" aria-label="Settings: MIDI, I/O, controller maps, help" title="Settings: MIDI, I/O, controller maps, help" style="width: 32px; height: 32px; border-radius: 50%; border: 1px solid #34373D; background: #26282C; color: #ECEAE4; font-size: 15px; cursor: pointer">⚙</button></span></header>
+<div style="background: #1C1E21; border: 1px solid #34373D; border-radius: 12px; padding: 10px 14px; display: flex; align-items: center; gap: 4px">
+<span style="font-size: 11px; color: #B9B6AE; letter-spacing: 0.1em; width: 70px">MIXER</span><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 62px">
+<div aria-hidden="true" style="width: 34px; height: 34px; border-radius: 50%; background: #26282C; border: 3px solid #F28BA8; box-sizing: border-box; position: relative; transform: rotate(-30deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 9px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap"></div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">BD</div>
+</div><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 62px">
+<div aria-hidden="true" style="width: 34px; height: 34px; border-radius: 50%; background: #26282C; border: 3px solid #7FB6EA; box-sizing: border-box; position: relative; transform: rotate(-30deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 9px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap"></div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">SD</div>
+</div><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 62px">
+<div aria-hidden="true" style="width: 34px; height: 34px; border-radius: 50%; background: #26282C; border: 3px solid #8FD48A; box-sizing: border-box; position: relative; transform: rotate(-30deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 9px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap"></div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">LT</div>
+</div><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 62px">
+<div aria-hidden="true" style="width: 34px; height: 34px; border-radius: 50%; background: #26282C; border: 3px solid #8FD48A; box-sizing: border-box; position: relative; transform: rotate(-30deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 9px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap"></div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">HT</div>
+</div><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 62px">
+<div aria-hidden="true" style="width: 34px; height: 34px; border-radius: 50%; background: #26282C; border: 3px solid #F2D36E; box-sizing: border-box; position: relative; transform: rotate(-30deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 9px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap"></div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">CH</div>
+</div><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 62px">
+<div aria-hidden="true" style="width: 34px; height: 34px; border-radius: 50%; background: #26282C; border: 3px solid #F2D36E; box-sizing: border-box; position: relative; transform: rotate(-30deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 9px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap"></div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">OH</div>
+</div><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 62px">
+<div aria-hidden="true" style="width: 34px; height: 34px; border-radius: 50%; background: #26282C; border: 3px solid #BBA0EC; box-sizing: border-box; position: relative; transform: rotate(-30deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 9px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap"></div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">RS</div>
+</div><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 62px">
+<div aria-hidden="true" style="width: 34px; height: 34px; border-radius: 50%; background: #26282C; border: 3px solid #BBA0EC; box-sizing: border-box; position: relative; transform: rotate(-30deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 9px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap"></div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">CP</div>
+</div><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 62px">
+<div aria-hidden="true" style="width: 34px; height: 34px; border-radius: 50%; background: #26282C; border: 3px solid #F6A970; box-sizing: border-box; position: relative; transform: rotate(-30deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 9px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap"></div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">SP1</div>
+</div><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 62px">
+<div aria-hidden="true" style="width: 34px; height: 34px; border-radius: 50%; background: #26282C; border: 3px solid #F6A970; box-sizing: border-box; position: relative; transform: rotate(-30deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 9px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap"></div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">SP2</div>
+</div><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 62px">
+<div aria-hidden="true" style="width: 34px; height: 34px; border-radius: 50%; background: #26282C; border: 3px solid #63D3C5; box-sizing: border-box; position: relative; transform: rotate(-30deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 9px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap"></div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">MULTI</div>
+</div><div style="width: 1px; height: 54px; background: #34373D"></div><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 70px">
+<div aria-hidden="true" style="width: 44px; height: 44px; border-radius: 50%; background: #26282C; border: 3px solid #ECEAE4; box-sizing: border-box; position: relative; transform: rotate(30deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 12px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap">-3 dB</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">Volume</div>
+</div>
+<button type="button" style="margin-left: auto; height: 36px; padding: 0 14px; border-radius: 8px; border: 1px solid #34373D; background: #26282C; color: #ECEAE4; font-family: inherit; font-size: 12px; font-weight: 600; cursor: pointer">Sync kit to drumlogue</button>
+</div>
+<div style="display: block; data-x: 1" data-parts="1"><section style="background: #1C1E21; border: 1px solid #34373D; border-radius: 12px; border-top: 5px solid #F28BA8; padding: 12px 10px; display: flex; flex-direction: column; gap: 10px; min-width: 0">
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 6px">
+<h2 style="margin: 0; font-size: 15px; font-weight: 700; color: #F28BA8; letter-spacing: 0.04em; text-transform: uppercase">Bass drum</h2>
+</div>
+
+<div style="background: #191A1D; border-radius: 10px; padding: 10px 4px; display: flex; flex-direction: column; gap: 10px; align-items: center">
+<span style="font-size: 9px; color: #B9B6AE; letter-spacing: 0.12em">PANEL KNOBS</span>
+<div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 90px">
+<div aria-hidden="true" style="width: 52px; height: 52px; border-radius: 50%; background: #26282C; border: 3px solid #F28BA8; box-sizing: border-box; position: relative; transform: rotate(40deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 14px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap">612</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">Decay</div>
+</div><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 90px">
+<div aria-hidden="true" style="width: 52px; height: 52px; border-radius: 50%; background: #26282C; border: 3px solid #F28BA8; box-sizing: border-box; position: relative; transform: rotate(-15deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 14px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap">455</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">Tune</div>
+</div><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 90px">
+<div aria-hidden="true" style="width: 52px; height: 52px; border-radius: 50%; background: #26282C; border: 3px solid #F28BA8; box-sizing: border-box; position: relative; transform: rotate(-60deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 14px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap">280</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">Drive</div>
+</div>
+</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.1em; text-transform: uppercase; padding-top: 4px; border-top: 1px solid #4A4E57">Sound select</div>
+<div style="display: flex; flex-direction: column; gap: 4px">
+<span style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.06em; text-transform: uppercase">Transient</span>
+<button type="button" style="height: 30px; border-radius: 6px; border: 1px dashed #F28BA8; background: #0E0F11; color: #ECEAE4; font-family: inherit; font-size: 12px; text-align: left; padding: 0 9px; cursor: pointer; display: flex; justify-content: space-between; align-items: center"><span>07 · Click</span><span style="color: #B9B6AE">▾</span></button>
+</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.1em; text-transform: uppercase; padding-top: 4px; border-top: 1px solid #4A4E57">Parameters</div>
+<div style="display: flex; justify-content: space-between; gap: 4px"><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 58px">
+<div aria-hidden="true" style="width: 40px; height: 40px; border-radius: 50%; background: #26282C; border: 3px solid #F28BA8; box-sizing: border-box; position: relative; transform: rotate(-40deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 11px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap">35%</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">Attack</div>
+</div><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 58px">
+<div aria-hidden="true" style="width: 40px; height: 40px; border-radius: 50%; background: #26282C; border: 3px solid #F28BA8; box-sizing: border-box; position: relative; transform: rotate(-70deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 11px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap">22%</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">Sweep</div>
+</div><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 58px">
+<div aria-hidden="true" style="width: 40px; height: 40px; border-radius: 50%; background: #26282C; border: 3px solid #F28BA8; box-sizing: border-box; position: relative; transform: rotate(-30deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 11px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap">40%</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">Sw.Time</div>
+</div></div><div style="display: flex; justify-content: space-between; gap: 4px"><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 58px">
+<div aria-hidden="true" style="width: 40px; height: 40px; border-radius: 50%; background: #26282C; border: 3px solid #F28BA8; box-sizing: border-box; position: relative; transform: rotate(-90deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 11px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap">1</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">Hold</div>
+</div><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 58px">
+<div aria-hidden="true" style="width: 40px; height: 40px; border-radius: 50%; background: #26282C; border: 3px dashed #F28BA8; box-sizing: border-box; position: relative; transform: rotate(0deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 11px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap">THRU</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">Cutoff</div>
+</div><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 58px">
+<div aria-hidden="true" style="width: 40px; height: 40px; border-radius: 50%; background: #26282C; border: 3px dashed #F28BA8; box-sizing: border-box; position: relative; transform: rotate(-110deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 11px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap">10%</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">Reson</div>
+</div></div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.1em; text-transform: uppercase; padding-top: 4px; border-top: 1px solid #4A4E57">Mix / Route</div>
+<div style="display: flex; justify-content: space-between; gap: 4px"><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 58px">
+<div aria-hidden="true" style="width: 32px; height: 32px; border-radius: 50%; background: #26282C; border: 3px solid #9AA4B4; box-sizing: border-box; position: relative; transform: rotate(0deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 8px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap">C</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">Pan</div>
+</div><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 58px">
+<div aria-hidden="true" style="width: 32px; height: 32px; border-radius: 50%; background: #26282C; border: 3px solid #9AA4B4; box-sizing: border-box; position: relative; transform: rotate(-115deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 8px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap">8%</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">Delay</div>
+</div><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 58px">
+<div aria-hidden="true" style="width: 32px; height: 32px; border-radius: 50%; background: #26282C; border: 3px solid #9AA4B4; box-sizing: border-box; position: relative; transform: rotate(-100deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 8px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap">15%</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">Reverb</div>
+</div></div><div style="display: flex; justify-content: space-between; gap: 4px"><div style="width: 58px"></div><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 58px">
+<div aria-hidden="true" style="width: 32px; height: 32px; border-radius: 50%; background: #26282C; border: 3px dashed #9AA4B4; box-sizing: border-box; position: relative; transform: rotate(-135deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 8px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap">0%</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">Sidech</div>
+</div><div style="display: flex; flex-direction: column; gap: 4px; width: 62px; align-items: center"><span style="font-size: 10px; color: #B9B6AE">MASTER</span><div style="display: flex; border: 1px dashed #63D3C5; border-radius: 6px; overflow: hidden"><button type="button" style="flex: 1; height: 28px; border: none; background: #63D3C5; color: #1E1F23; font-family: inherit; font-size: 11px; font-weight: 700; cursor: pointer">ON</button><button type="button" style="flex: 1; height: 28px; border: none; background: #0E0F11; color: #B9B6AE; font-family: inherit; font-size: 11px; font-weight: 700; cursor: pointer">BYP</button></div></div></div>
+
+</section><section style="background: #1C1E21; border: 1px solid #34373D; border-radius: 12px; border-top: 5px solid #7FB6EA; padding: 12px 10px; display: flex; flex-direction: column; gap: 10px; min-width: 0">
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 6px">
+<h2 style="margin: 0; font-size: 15px; font-weight: 700; color: #7FB6EA; letter-spacing: 0.04em; text-transform: uppercase">Snare drum</h2>
+</div>
+
+<div style="background: #191A1D; border-radius: 10px; padding: 10px 4px; display: flex; flex-direction: column; gap: 10px; align-items: center">
+<span style="font-size: 9px; color: #B9B6AE; letter-spacing: 0.12em">PANEL KNOBS</span>
+<div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 90px">
+<div aria-hidden="true" style="width: 52px; height: 52px; border-radius: 50%; background: #26282C; border: 3px solid #7FB6EA; box-sizing: border-box; position: relative; transform: rotate(20deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 14px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap">540</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">Decay</div>
+</div><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 90px">
+<div aria-hidden="true" style="width: 52px; height: 52px; border-radius: 50%; background: #26282C; border: 3px solid #7FB6EA; box-sizing: border-box; position: relative; transform: rotate(0deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 14px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap">500</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">Tune</div>
+</div><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 90px">
+<div aria-hidden="true" style="width: 52px; height: 52px; border-radius: 50%; background: #26282C; border: 3px solid #7FB6EA; box-sizing: border-box; position: relative; transform: rotate(50deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 14px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap">700</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">Snappy</div>
+</div>
+</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.1em; text-transform: uppercase; padding-top: 4px; border-top: 1px solid #4A4E57">Sound select</div>
+<div style="display: flex; flex-direction: column; gap: 4px">
+<span style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.06em; text-transform: uppercase">Snappy type</span>
+<button type="button" style="height: 30px; border-radius: 6px; border: 1px dashed #7FB6EA; background: #0E0F11; color: #ECEAE4; font-family: inherit; font-size: 12px; text-align: left; padding: 0 9px; cursor: pointer; display: flex; justify-content: space-between; align-items: center"><span>03 · Tight</span><span style="color: #B9B6AE">▾</span></button>
+</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.1em; text-transform: uppercase; padding-top: 4px; border-top: 1px solid #4A4E57">Parameters</div>
+<div style="display: flex; justify-content: space-between; gap: 4px"><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 58px">
+<div aria-hidden="true" style="width: 40px; height: 40px; border-radius: 50%; background: #26282C; border: 3px solid #7FB6EA; box-sizing: border-box; position: relative; transform: rotate(-10deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 11px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap">45%</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">Tone</div>
+</div><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 58px">
+<div aria-hidden="true" style="width: 40px; height: 40px; border-radius: 50%; background: #26282C; border: 3px solid #7FB6EA; box-sizing: border-box; position: relative; transform: rotate(20deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 11px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap">60%</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">Snap.Lv</div>
+</div><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 58px">
+<div aria-hidden="true" style="width: 40px; height: 40px; border-radius: 50%; background: #26282C; border: 3px dashed #7FB6EA; box-sizing: border-box; position: relative; transform: rotate(-90deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 11px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap">H12%</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">Cutoff</div>
+</div></div><div style="display: flex; justify-content: space-between; gap: 4px"><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 58px">
+<div aria-hidden="true" style="width: 40px; height: 40px; border-radius: 50%; background: #26282C; border: 3px dashed #7FB6EA; box-sizing: border-box; position: relative; transform: rotate(-120deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 11px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap">5%</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">Reson</div>
+</div><div style="width: 58px"></div><div style="width: 58px"></div></div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.1em; text-transform: uppercase; padding-top: 4px; border-top: 1px solid #4A4E57">Mix / Route</div>
+<div style="display: flex; justify-content: space-between; gap: 4px"><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 58px">
+<div aria-hidden="true" style="width: 32px; height: 32px; border-radius: 50%; background: #26282C; border: 3px solid #9AA4B4; box-sizing: border-box; position: relative; transform: rotate(0deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 8px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap">C</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">Pan</div>
+</div><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 58px">
+<div aria-hidden="true" style="width: 32px; height: 32px; border-radius: 50%; background: #26282C; border: 3px solid #9AA4B4; box-sizing: border-box; position: relative; transform: rotate(-115deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 8px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap">8%</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">Delay</div>
+</div><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 58px">
+<div aria-hidden="true" style="width: 32px; height: 32px; border-radius: 50%; background: #26282C; border: 3px solid #9AA4B4; box-sizing: border-box; position: relative; transform: rotate(-100deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 8px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap">15%</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">Reverb</div>
+</div></div><div style="display: flex; justify-content: space-between; gap: 4px"><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 58px">
+<div aria-hidden="true" style="width: 32px; height: 32px; border-radius: 50%; background: #26282C; border: 3px dashed #9AA4B4; box-sizing: border-box; position: relative; transform: rotate(0deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 8px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap">0</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">Spread</div>
+</div><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 58px">
+<div aria-hidden="true" style="width: 32px; height: 32px; border-radius: 50%; background: #26282C; border: 3px dashed #9AA4B4; box-sizing: border-box; position: relative; transform: rotate(-135deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 8px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap">0%</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">Sidech</div>
+</div><div style="display: flex; flex-direction: column; gap: 4px; width: 62px; align-items: center"><span style="font-size: 10px; color: #B9B6AE">MASTER</span><div style="display: flex; border: 1px dashed #63D3C5; border-radius: 6px; overflow: hidden"><button type="button" style="flex: 1; height: 28px; border: none; background: #63D3C5; color: #1E1F23; font-family: inherit; font-size: 11px; font-weight: 700; cursor: pointer">ON</button><button type="button" style="flex: 1; height: 28px; border: none; background: #0E0F11; color: #B9B6AE; font-family: inherit; font-size: 11px; font-weight: 700; cursor: pointer">BYP</button></div></div></div>
+
+</section><section style="background: #1C1E21; border: 1px solid #34373D; border-radius: 12px; border-top: 5px solid #8FD48A; padding: 12px 10px; display: flex; flex-direction: column; gap: 10px; min-width: 0">
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 6px">
+<h2 style="margin: 0; font-size: 15px; font-weight: 700; color: #8FD48A; letter-spacing: 0.04em; text-transform: uppercase">Toms</h2>
+</div>
+<div style="display: flex; border: 1px solid #34373D; border-radius: 6px; overflow: hidden"><button type="button" style="flex: 1; height: 28px; border: none; background: #8FD48A; color: #1E1F23; font-family: inherit; font-size: 11px; font-weight: 700; cursor: pointer">LT</button><button type="button" style="flex: 1; height: 28px; border: none; background: #0E0F11; color: #B9B6AE; font-family: inherit; font-size: 11px; font-weight: 700; cursor: pointer">HT</button></div>
+<div style="background: #191A1D; border-radius: 10px; padding: 10px 4px; display: flex; flex-direction: column; gap: 10px; align-items: center">
+<span style="font-size: 9px; color: #B9B6AE; letter-spacing: 0.12em">PANEL KNOBS</span>
+<div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 90px">
+<div aria-hidden="true" style="width: 52px; height: 52px; border-radius: 50%; background: #26282C; border: 3px solid #8FD48A; box-sizing: border-box; position: relative; transform: rotate(10deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 14px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap">480</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">LT Decay</div>
+</div><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 90px">
+<div aria-hidden="true" style="width: 52px; height: 52px; border-radius: 50%; background: #26282C; border: 3px solid #8FD48A; box-sizing: border-box; position: relative; transform: rotate(-30deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 14px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap">390</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">LT Tune</div>
+</div><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 90px">
+<div aria-hidden="true" style="width: 52px; height: 52px; border-radius: 50%; background: #26282C; border: 3px solid #8FD48A; box-sizing: border-box; position: relative; transform: rotate(-95deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 14px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap">120</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">LT Detune</div>
+</div>
+</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.1em; text-transform: uppercase; padding-top: 4px; border-top: 1px solid #4A4E57">Sound select</div>
+<div style="display: flex; flex-direction: column; gap: 4px">
+<span style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.06em; text-transform: uppercase">Layer</span>
+<button type="button" style="height: 30px; border-radius: 6px; border: 1px dashed #8FD48A; background: #0E0F11; color: #ECEAE4; font-family: inherit; font-size: 12px; text-align: left; padding: 0 9px; cursor: pointer; display: flex; justify-content: space-between; align-items: center"><span>04 · Stick</span><span style="color: #B9B6AE">▾</span></button>
+</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.1em; text-transform: uppercase; padding-top: 4px; border-top: 1px solid #4A4E57">Parameters</div>
+<div style="display: flex; justify-content: space-between; gap: 4px"><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 58px">
+<div aria-hidden="true" style="width: 40px; height: 40px; border-radius: 50%; background: #26282C; border: 3px solid #8FD48A; box-sizing: border-box; position: relative; transform: rotate(-50deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 11px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap">30%</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">Sweep</div>
+</div><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 58px">
+<div aria-hidden="true" style="width: 40px; height: 40px; border-radius: 50%; background: #26282C; border: 3px solid #8FD48A; box-sizing: border-box; position: relative; transform: rotate(0deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 11px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap">50%</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">Attack</div>
+</div><div style="display: flex; flex-direction: column; gap: 4px; width: 62px; align-items: center"><span style="font-size: 10px; color: #B9B6AE">DRIVE</span><div style="display: flex; border: 1px solid #34373D; border-radius: 6px; overflow: hidden"><button type="button" style="flex: 1; height: 28px; border: none; background: #0E0F11; color: #B9B6AE; font-family: inherit; font-size: 11px; font-weight: 700; cursor: pointer">OFF</button><button type="button" style="flex: 1; height: 28px; border: none; background: #8FD48A; color: #1E1F23; font-family: inherit; font-size: 11px; font-weight: 700; cursor: pointer">LO</button><button type="button" style="flex: 1; height: 28px; border: none; background: #0E0F11; color: #B9B6AE; font-family: inherit; font-size: 11px; font-weight: 700; cursor: pointer">HI</button></div></div></div><div style="display: flex; justify-content: space-between; gap: 4px"><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 58px">
+<div aria-hidden="true" style="width: 40px; height: 40px; border-radius: 50%; background: #26282C; border: 3px dashed #8FD48A; box-sizing: border-box; position: relative; transform: rotate(0deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 11px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap">THRU</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">Cutoff</div>
+</div><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 58px">
+<div aria-hidden="true" style="width: 40px; height: 40px; border-radius: 50%; background: #26282C; border: 3px dashed #8FD48A; box-sizing: border-box; position: relative; transform: rotate(-135deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 11px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap">0%</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">Reson</div>
+</div><div style="width: 58px"></div></div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.1em; text-transform: uppercase; padding-top: 4px; border-top: 1px solid #4A4E57">Mix / Route</div>
+<div style="display: flex; justify-content: space-between; gap: 4px"><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 58px">
+<div aria-hidden="true" style="width: 32px; height: 32px; border-radius: 50%; background: #26282C; border: 3px solid #9AA4B4; box-sizing: border-box; position: relative; transform: rotate(0deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 8px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap">C</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">Pan</div>
+</div><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 58px">
+<div aria-hidden="true" style="width: 32px; height: 32px; border-radius: 50%; background: #26282C; border: 3px solid #9AA4B4; box-sizing: border-box; position: relative; transform: rotate(-115deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 8px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap">8%</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">Delay</div>
+</div><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 58px">
+<div aria-hidden="true" style="width: 32px; height: 32px; border-radius: 50%; background: #26282C; border: 3px solid #9AA4B4; box-sizing: border-box; position: relative; transform: rotate(-100deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 8px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap">15%</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">Reverb</div>
+</div></div><div style="display: flex; justify-content: space-between; gap: 4px"><div style="width: 58px"></div><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 58px">
+<div aria-hidden="true" style="width: 32px; height: 32px; border-radius: 50%; background: #26282C; border: 3px dashed #9AA4B4; box-sizing: border-box; position: relative; transform: rotate(-135deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 8px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap">0%</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">Sidech</div>
+</div><div style="display: flex; flex-direction: column; gap: 4px; width: 62px; align-items: center"><span style="font-size: 10px; color: #B9B6AE">MASTER</span><div style="display: flex; border: 1px dashed #63D3C5; border-radius: 6px; overflow: hidden"><button type="button" style="flex: 1; height: 28px; border: none; background: #63D3C5; color: #1E1F23; font-family: inherit; font-size: 11px; font-weight: 700; cursor: pointer">ON</button><button type="button" style="flex: 1; height: 28px; border: none; background: #0E0F11; color: #B9B6AE; font-family: inherit; font-size: 11px; font-weight: 700; cursor: pointer">BYP</button></div></div></div>
+
+</section><section style="background: #1C1E21; border: 1px solid #34373D; border-radius: 12px; border-top: 5px solid #F2D36E; padding: 12px 10px; display: flex; flex-direction: column; gap: 10px; min-width: 0">
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 6px">
+<h2 style="margin: 0; font-size: 15px; font-weight: 700; color: #F2D36E; letter-spacing: 0.04em; text-transform: uppercase">Hats</h2>
+</div>
+<div style="display: flex; border: 1px solid #34373D; border-radius: 6px; overflow: hidden"><button type="button" style="flex: 1; height: 28px; border: none; background: #F2D36E; color: #1E1F23; font-family: inherit; font-size: 11px; font-weight: 700; cursor: pointer">CH</button><button type="button" style="flex: 1; height: 28px; border: none; background: #0E0F11; color: #B9B6AE; font-family: inherit; font-size: 11px; font-weight: 700; cursor: pointer">OH</button></div>
+<div style="background: #191A1D; border-radius: 10px; padding: 10px 4px; display: flex; flex-direction: column; gap: 10px; align-items: center">
+<span style="font-size: 9px; color: #B9B6AE; letter-spacing: 0.12em">PANEL KNOBS</span>
+<div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 90px">
+<div aria-hidden="true" style="width: 52px; height: 52px; border-radius: 50%; background: #26282C; border: 3px solid #F2D36E; box-sizing: border-box; position: relative; transform: rotate(-45deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 14px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap">300</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">CH Decay</div>
+</div><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 90px">
+<div aria-hidden="true" style="width: 52px; height: 52px; border-radius: 50%; background: #26282C; border: 3px solid #F2D36E; box-sizing: border-box; position: relative; transform: rotate(30deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 14px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap">650</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">OH Decay</div>
+</div>
+</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.1em; text-transform: uppercase; padding-top: 4px; border-top: 1px solid #4A4E57">Sound select</div>
+<div style="display: flex; flex-direction: column; gap: 4px">
+<span style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.06em; text-transform: uppercase">Bank · Sample</span>
+<button type="button" style="height: 30px; border-radius: 6px; border: 1px dashed #F2D36E; background: #0E0F11; color: #ECEAE4; font-family: inherit; font-size: 12px; text-align: left; padding: 0 9px; cursor: pointer; display: flex; justify-content: space-between; align-items: center"><span>CH · 05 Tight</span><span style="color: #B9B6AE">▾</span></button>
+</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.1em; text-transform: uppercase; padding-top: 4px; border-top: 1px solid #4A4E57">Parameters</div>
+<div style="display: flex; justify-content: space-between; gap: 4px"><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 58px">
+<div aria-hidden="true" style="width: 40px; height: 40px; border-radius: 50%; background: #26282C; border: 3px solid #F2D36E; box-sizing: border-box; position: relative; transform: rotate(0deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 11px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap">+0.00</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">Tune</div>
+</div><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 58px">
+<div aria-hidden="true" style="width: 40px; height: 40px; border-radius: 50%; background: #26282C; border: 3px solid #F2D36E; box-sizing: border-box; position: relative; transform: rotate(-135deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 11px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap">0%</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">Attack</div>
+</div><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 58px">
+<div aria-hidden="true" style="width: 40px; height: 40px; border-radius: 50%; background: #26282C; border: 3px solid #F2D36E; box-sizing: border-box; position: relative; transform: rotate(-135deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 11px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap">0%</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">Start</div>
+</div></div><div style="display: flex; justify-content: space-between; gap: 4px"><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 58px">
+<div aria-hidden="true" style="width: 40px; height: 40px; border-radius: 50%; background: #26282C; border: 3px solid #F2D36E; box-sizing: border-box; position: relative; transform: rotate(135deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 11px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap">100%</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">End</div>
+</div><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 58px">
+<div aria-hidden="true" style="width: 40px; height: 40px; border-radius: 50%; background: #26282C; border: 3px dashed #F2D36E; box-sizing: border-box; position: relative; transform: rotate(-60deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 11px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap">H20%</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">Cutoff</div>
+</div><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 58px">
+<div aria-hidden="true" style="width: 40px; height: 40px; border-radius: 50%; background: #26282C; border: 3px dashed #F2D36E; box-sizing: border-box; position: relative; transform: rotate(-135deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 11px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap">0%</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">Reson</div>
+</div></div><div style="display: flex; justify-content: space-between; gap: 4px"><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 58px">
+<div aria-hidden="true" style="width: 40px; height: 40px; border-radius: 50%; background: #26282C; border: 3px dashed #F2D36E; box-sizing: border-box; position: relative; transform: rotate(-135deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 11px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap">0%</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">Redux</div>
+</div><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 58px">
+<div aria-hidden="true" style="width: 40px; height: 40px; border-radius: 50%; background: #26282C; border: 3px dashed #F2D36E; box-sizing: border-box; position: relative; transform: rotate(-110deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 11px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap">10%</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">Drive</div>
+</div><div style="width: 58px"></div></div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.1em; text-transform: uppercase; padding-top: 4px; border-top: 1px solid #4A4E57">Mix / Route</div>
+<div style="display: flex; justify-content: space-between; gap: 4px"><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 58px">
+<div aria-hidden="true" style="width: 32px; height: 32px; border-radius: 50%; background: #26282C; border: 3px solid #9AA4B4; box-sizing: border-box; position: relative; transform: rotate(0deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 8px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap">C</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">Pan</div>
+</div><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 58px">
+<div aria-hidden="true" style="width: 32px; height: 32px; border-radius: 50%; background: #26282C; border: 3px solid #9AA4B4; box-sizing: border-box; position: relative; transform: rotate(-115deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 8px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap">8%</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">Delay</div>
+</div><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 58px">
+<div aria-hidden="true" style="width: 32px; height: 32px; border-radius: 50%; background: #26282C; border: 3px solid #9AA4B4; box-sizing: border-box; position: relative; transform: rotate(-100deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 8px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap">15%</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">Reverb</div>
+</div></div><div style="display: flex; justify-content: space-between; gap: 4px"><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 58px">
+<div aria-hidden="true" style="width: 32px; height: 32px; border-radius: 50%; background: #26282C; border: 3px dashed #9AA4B4; box-sizing: border-box; position: relative; transform: rotate(0deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 8px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap">0</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">Spread</div>
+</div><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 58px">
+<div aria-hidden="true" style="width: 32px; height: 32px; border-radius: 50%; background: #26282C; border: 3px dashed #9AA4B4; box-sizing: border-box; position: relative; transform: rotate(-135deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 8px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap">0%</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">Sidech</div>
+</div><div style="display: flex; flex-direction: column; gap: 4px; width: 62px; align-items: center"><span style="font-size: 10px; color: #B9B6AE">MASTER</span><div style="display: flex; border: 1px dashed #63D3C5; border-radius: 6px; overflow: hidden"><button type="button" style="flex: 1; height: 28px; border: none; background: #63D3C5; color: #1E1F23; font-family: inherit; font-size: 11px; font-weight: 700; cursor: pointer">ON</button><button type="button" style="flex: 1; height: 28px; border: none; background: #0E0F11; color: #B9B6AE; font-family: inherit; font-size: 11px; font-weight: 700; cursor: pointer">BYP</button></div></div></div>
+
+</section><section style="background: #1C1E21; border: 1px solid #34373D; border-radius: 12px; border-top: 5px solid #BBA0EC; padding: 12px 10px; display: flex; flex-direction: column; gap: 10px; min-width: 0">
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 6px">
+<h2 style="margin: 0; font-size: 15px; font-weight: 700; color: #BBA0EC; letter-spacing: 0.04em; text-transform: uppercase">Rim · Clap</h2>
+</div>
+<div style="display: flex; border: 1px solid #34373D; border-radius: 6px; overflow: hidden"><button type="button" style="flex: 1; height: 28px; border: none; background: #BBA0EC; color: #1E1F23; font-family: inherit; font-size: 11px; font-weight: 700; cursor: pointer">RS</button><button type="button" style="flex: 1; height: 28px; border: none; background: #0E0F11; color: #B9B6AE; font-family: inherit; font-size: 11px; font-weight: 700; cursor: pointer">CP</button></div>
+<div style="background: #191A1D; border-radius: 10px; padding: 10px 4px; display: flex; flex-direction: column; gap: 10px; align-items: center">
+<span style="font-size: 9px; color: #B9B6AE; letter-spacing: 0.12em">PANEL KNOBS</span>
+<div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 90px">
+<div aria-hidden="true" style="width: 52px; height: 52px; border-radius: 50%; background: #26282C; border: 3px solid #BBA0EC; box-sizing: border-box; position: relative; transform: rotate(-5deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 14px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap">420</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">CP Decay</div>
+</div>
+</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.1em; text-transform: uppercase; padding-top: 4px; border-top: 1px solid #4A4E57">Sound select</div>
+<div style="display: flex; flex-direction: column; gap: 4px">
+<span style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.06em; text-transform: uppercase">Bank · Sample</span>
+<button type="button" style="height: 30px; border-radius: 6px; border: 1px dashed #BBA0EC; background: #0E0F11; color: #ECEAE4; font-family: inherit; font-size: 12px; text-align: left; padding: 0 9px; cursor: pointer; display: flex; justify-content: space-between; align-items: center"><span>CP · 02 Room</span><span style="color: #B9B6AE">▾</span></button>
+</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.1em; text-transform: uppercase; padding-top: 4px; border-top: 1px solid #4A4E57">Parameters</div>
+<div style="display: flex; justify-content: space-between; gap: 4px"><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 58px">
+<div aria-hidden="true" style="width: 40px; height: 40px; border-radius: 50%; background: #26282C; border: 3px solid #BBA0EC; box-sizing: border-box; position: relative; transform: rotate(-20deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 11px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap">-2.00</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">Tune</div>
+</div><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 58px">
+<div aria-hidden="true" style="width: 40px; height: 40px; border-radius: 50%; background: #26282C; border: 3px solid #BBA0EC; box-sizing: border-box; position: relative; transform: rotate(-120deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 11px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap">5%</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">Attack</div>
+</div><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 58px">
+<div aria-hidden="true" style="width: 40px; height: 40px; border-radius: 50%; background: #26282C; border: 3px solid #BBA0EC; box-sizing: border-box; position: relative; transform: rotate(-135deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 11px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap">0%</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">Start</div>
+</div></div><div style="display: flex; justify-content: space-between; gap: 4px"><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 58px">
+<div aria-hidden="true" style="width: 40px; height: 40px; border-radius: 50%; background: #26282C; border: 3px solid #BBA0EC; box-sizing: border-box; position: relative; transform: rotate(110deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 11px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap">90%</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">End</div>
+</div><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 58px">
+<div aria-hidden="true" style="width: 40px; height: 40px; border-radius: 50%; background: #26282C; border: 3px dashed #BBA0EC; box-sizing: border-box; position: relative; transform: rotate(0deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 11px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap">THRU</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">Cutoff</div>
+</div><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 58px">
+<div aria-hidden="true" style="width: 40px; height: 40px; border-radius: 50%; background: #26282C; border: 3px dashed #BBA0EC; box-sizing: border-box; position: relative; transform: rotate(-135deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 11px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap">0%</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">Reson</div>
+</div></div><div style="display: flex; justify-content: space-between; gap: 4px"><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 58px">
+<div aria-hidden="true" style="width: 40px; height: 40px; border-radius: 50%; background: #26282C; border: 3px dashed #BBA0EC; box-sizing: border-box; position: relative; transform: rotate(-135deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 11px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap">0%</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">Redux</div>
+</div><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 58px">
+<div aria-hidden="true" style="width: 40px; height: 40px; border-radius: 50%; background: #26282C; border: 3px dashed #BBA0EC; box-sizing: border-box; position: relative; transform: rotate(-135deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 11px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap">0%</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">Drive</div>
+</div><div style="width: 58px"></div></div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.1em; text-transform: uppercase; padding-top: 4px; border-top: 1px solid #4A4E57">Mix / Route</div>
+<div style="display: flex; justify-content: space-between; gap: 4px"><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 58px">
+<div aria-hidden="true" style="width: 32px; height: 32px; border-radius: 50%; background: #26282C; border: 3px solid #9AA4B4; box-sizing: border-box; position: relative; transform: rotate(0deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 8px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap">C</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">Pan</div>
+</div><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 58px">
+<div aria-hidden="true" style="width: 32px; height: 32px; border-radius: 50%; background: #26282C; border: 3px solid #9AA4B4; box-sizing: border-box; position: relative; transform: rotate(-115deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 8px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap">8%</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">Delay</div>
+</div><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 58px">
+<div aria-hidden="true" style="width: 32px; height: 32px; border-radius: 50%; background: #26282C; border: 3px solid #9AA4B4; box-sizing: border-box; position: relative; transform: rotate(-100deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 8px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap">15%</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">Reverb</div>
+</div></div><div style="display: flex; justify-content: space-between; gap: 4px"><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 58px">
+<div aria-hidden="true" style="width: 32px; height: 32px; border-radius: 50%; background: #26282C; border: 3px dashed #9AA4B4; box-sizing: border-box; position: relative; transform: rotate(0deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 8px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap">0</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">Spread</div>
+</div><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 58px">
+<div aria-hidden="true" style="width: 32px; height: 32px; border-radius: 50%; background: #26282C; border: 3px dashed #9AA4B4; box-sizing: border-box; position: relative; transform: rotate(-135deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 8px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap">0%</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">Sidech</div>
+</div><div style="display: flex; flex-direction: column; gap: 4px; width: 62px; align-items: center"><span style="font-size: 10px; color: #B9B6AE">MASTER</span><div style="display: flex; border: 1px dashed #63D3C5; border-radius: 6px; overflow: hidden"><button type="button" style="flex: 1; height: 28px; border: none; background: #63D3C5; color: #1E1F23; font-family: inherit; font-size: 11px; font-weight: 700; cursor: pointer">ON</button><button type="button" style="flex: 1; height: 28px; border: none; background: #0E0F11; color: #B9B6AE; font-family: inherit; font-size: 11px; font-weight: 700; cursor: pointer">BYP</button></div></div></div>
+
+</section><section style="background: #1C1E21; border: 1px solid #34373D; border-radius: 12px; border-top: 5px solid #F6A970; padding: 12px 10px; display: flex; flex-direction: column; gap: 10px; min-width: 0">
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 6px">
+<h2 style="margin: 0; font-size: 15px; font-weight: 700; color: #F6A970; letter-spacing: 0.04em; text-transform: uppercase">Samples</h2>
+</div>
+<div style="display: flex; border: 1px solid #34373D; border-radius: 6px; overflow: hidden"><button type="button" style="flex: 1; height: 28px; border: none; background: #F6A970; color: #1E1F23; font-family: inherit; font-size: 11px; font-weight: 700; cursor: pointer">SP1</button><button type="button" style="flex: 1; height: 28px; border: none; background: #0E0F11; color: #B9B6AE; font-family: inherit; font-size: 11px; font-weight: 700; cursor: pointer">SP2</button></div>
+<div style="background: #191A1D; border-radius: 10px; padding: 10px 4px; display: flex; flex-direction: column; gap: 10px; align-items: center">
+<span style="font-size: 9px; color: #B9B6AE; letter-spacing: 0.12em">PANEL KNOBS</span>
+<div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 90px">
+<div aria-hidden="true" style="width: 52px; height: 52px; border-radius: 50%; background: #26282C; border: 3px solid #F6A970; box-sizing: border-box; position: relative; transform: rotate(-135deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 14px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap">0</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">SP1 Attack</div>
+</div><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 90px">
+<div aria-hidden="true" style="width: 52px; height: 52px; border-radius: 50%; background: #26282C; border: 3px solid #F6A970; box-sizing: border-box; position: relative; transform: rotate(70deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 14px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap">800</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">SP1 Decay</div>
+</div><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 90px">
+<div aria-hidden="true" style="width: 52px; height: 52px; border-radius: 50%; background: #26282C; border: 3px solid #F6A970; box-sizing: border-box; position: relative; transform: rotate(0deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 14px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap">+0.00</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">SP1 Tune</div>
+</div>
+</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.1em; text-transform: uppercase; padding-top: 4px; border-top: 1px solid #4A4E57">Sound select</div>
+<div style="display: flex; flex-direction: column; gap: 4px">
+<span style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.06em; text-transform: uppercase">Bank · Sample</span>
+<button type="button" style="height: 30px; border-radius: 6px; border: 1px dashed #F6A970; background: #0E0F11; color: #ECEAE4; font-family: inherit; font-size: 12px; text-align: left; padding: 0 9px; cursor: pointer; display: flex; justify-content: space-between; align-items: center"><span>USER · 012 Vox Chop</span><span style="color: #B9B6AE">▾</span></button>
+</div><div aria-hidden="true" style="height: 46px; border-radius: 6px; background: #0E0F11; position: relative; overflow: hidden"><div style="position: absolute; inset: 0; display: flex; align-items: center; gap: 1px; padding: 0 6px"><div style="width: 3px; height: 26px; background: #F6A970; opacity: 0.8"></div><div style="width: 3px; height: 38px; background: #F6A970; opacity: 0.8"></div><div style="width: 3px; height: 25px; background: #F6A970; opacity: 0.8"></div><div style="width: 3px; height: 32px; background: #F6A970; opacity: 0.8"></div><div style="width: 3px; height: 24px; background: #F6A970; opacity: 0.8"></div><div style="width: 3px; height: 26px; background: #F6A970; opacity: 0.8"></div><div style="width: 3px; height: 23px; background: #F6A970; opacity: 0.8"></div><div style="width: 3px; height: 20px; background: #F6A970; opacity: 0.8"></div><div style="width: 3px; height: 21px; background: #F6A970; opacity: 0.8"></div><div style="width: 3px; height: 16px; background: #F6A970; opacity: 0.8"></div><div style="width: 3px; height: 19px; background: #F6A970; opacity: 0.8"></div><div style="width: 3px; height: 12px; background: #F6A970; opacity: 0.8"></div><div style="width: 3px; height: 16px; background: #F6A970; opacity: 0.8"></div><div style="width: 3px; height: 10px; background: #F6A970; opacity: 0.8"></div><div style="width: 3px; height: 14px; background: #F6A970; opacity: 0.8"></div><div style="width: 3px; height: 10px; background: #F6A970; opacity: 0.8"></div><div style="width: 3px; height: 12px; background: #F6A970; opacity: 0.8"></div><div style="width: 3px; height: 10px; background: #F6A970; opacity: 0.8"></div><div style="width: 3px; height: 9px; background: #F6A970; opacity: 0.8"></div><div style="width: 3px; height: 9px; background: #F6A970; opacity: 0.8"></div><div style="width: 3px; height: 8px; background: #F6A970; opacity: 0.8"></div><div style="width: 3px; height: 8px; background: #F6A970; opacity: 0.8"></div><div style="width: 3px; height: 6px; background: #F6A970; opacity: 0.8"></div><div style="width: 3px; height: 7px; background: #F6A970; opacity: 0.8"></div><div style="width: 3px; height: 5px; background: #F6A970; opacity: 0.8"></div><div style="width: 3px; height: 6px; background: #F6A970; opacity: 0.8"></div><div style="width: 3px; height: 5px; background: #F6A970; opacity: 0.8"></div><div style="width: 3px; height: 6px; background: #F6A970; opacity: 0.8"></div><div style="width: 3px; height: 5px; background: #F6A970; opacity: 0.8"></div><div style="width: 3px; height: 5px; background: #F6A970; opacity: 0.8"></div><div style="width: 3px; height: 4px; background: #F6A970; opacity: 0.8"></div><div style="width: 3px; height: 4px; background: #F6A970; opacity: 0.8"></div><div style="width: 3px; height: 4px; background: #F6A970; opacity: 0.8"></div><div style="width: 3px; height: 3px; background: #F6A970; opacity: 0.8"></div><div style="width: 3px; height: 4px; background: #F6A970; opacity: 0.8"></div><div style="width: 3px; height: 3px; background: #F6A970; opacity: 0.8"></div><div style="width: 3px; height: 3px; background: #F6A970; opacity: 0.8"></div><div style="width: 3px; height: 3px; background: #F6A970; opacity: 0.8"></div><div style="width: 3px; height: 3px; background: #F6A970; opacity: 0.8"></div><div style="width: 3px; height: 3px; background: #F6A970; opacity: 0.8"></div></div><div style="position: absolute; left: 10%; top: 0; bottom: 0; width: 2px; background: #ECEAE4"></div><div style="position: absolute; left: 82%; top: 0; bottom: 0; width: 2px; background: #ECEAE4"></div></div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.1em; text-transform: uppercase; padding-top: 4px; border-top: 1px solid #4A4E57">Parameters</div>
+<div style="display: flex; justify-content: space-between; gap: 4px"><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 58px">
+<div aria-hidden="true" style="width: 40px; height: 40px; border-radius: 50%; background: #26282C; border: 3px solid #F6A970; box-sizing: border-box; position: relative; transform: rotate(-110deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 11px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap">10%</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">Start</div>
+</div><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 58px">
+<div aria-hidden="true" style="width: 40px; height: 40px; border-radius: 50%; background: #26282C; border: 3px solid #F6A970; box-sizing: border-box; position: relative; transform: rotate(95deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 11px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap">82%</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">End</div>
+</div><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 58px">
+<div aria-hidden="true" style="width: 40px; height: 40px; border-radius: 50%; background: #26282C; border: 3px dashed #F6A970; box-sizing: border-box; position: relative; transform: rotate(80deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 11px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap">L80%</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">Cutoff</div>
+</div></div><div style="display: flex; justify-content: space-between; gap: 4px"><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 58px">
+<div aria-hidden="true" style="width: 40px; height: 40px; border-radius: 50%; background: #26282C; border: 3px dashed #F6A970; box-sizing: border-box; position: relative; transform: rotate(-135deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 11px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap">0%</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">Reson</div>
+</div><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 58px">
+<div aria-hidden="true" style="width: 40px; height: 40px; border-radius: 50%; background: #26282C; border: 3px dashed #F6A970; box-sizing: border-box; position: relative; transform: rotate(-135deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 11px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap">0%</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">Redux</div>
+</div><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 58px">
+<div aria-hidden="true" style="width: 40px; height: 40px; border-radius: 50%; background: #26282C; border: 3px dashed #F6A970; box-sizing: border-box; position: relative; transform: rotate(-100deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 11px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap">15%</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">Drive</div>
+</div></div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.1em; text-transform: uppercase; padding-top: 4px; border-top: 1px solid #4A4E57">Mix / Route</div>
+<div style="display: flex; justify-content: space-between; gap: 4px"><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 58px">
+<div aria-hidden="true" style="width: 32px; height: 32px; border-radius: 50%; background: #26282C; border: 3px solid #9AA4B4; box-sizing: border-box; position: relative; transform: rotate(0deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 8px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap">C</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">Pan</div>
+</div><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 58px">
+<div aria-hidden="true" style="width: 32px; height: 32px; border-radius: 50%; background: #26282C; border: 3px solid #9AA4B4; box-sizing: border-box; position: relative; transform: rotate(-115deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 8px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap">8%</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">Delay</div>
+</div><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 58px">
+<div aria-hidden="true" style="width: 32px; height: 32px; border-radius: 50%; background: #26282C; border: 3px solid #9AA4B4; box-sizing: border-box; position: relative; transform: rotate(-100deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 8px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap">15%</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">Reverb</div>
+</div></div><div style="display: flex; justify-content: space-between; gap: 4px"><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 58px">
+<div aria-hidden="true" style="width: 32px; height: 32px; border-radius: 50%; background: #26282C; border: 3px dashed #9AA4B4; box-sizing: border-box; position: relative; transform: rotate(0deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 8px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap">0</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">Spread</div>
+</div><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 58px">
+<div aria-hidden="true" style="width: 32px; height: 32px; border-radius: 50%; background: #26282C; border: 3px dashed #9AA4B4; box-sizing: border-box; position: relative; transform: rotate(-135deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 8px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap">0%</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">Sidech</div>
+</div><div style="display: flex; flex-direction: column; gap: 4px; width: 62px; align-items: center"><span style="font-size: 10px; color: #B9B6AE">MASTER</span><div style="display: flex; border: 1px dashed #63D3C5; border-radius: 6px; overflow: hidden"><button type="button" style="flex: 1; height: 28px; border: none; background: #63D3C5; color: #1E1F23; font-family: inherit; font-size: 11px; font-weight: 700; cursor: pointer">ON</button><button type="button" style="flex: 1; height: 28px; border: none; background: #0E0F11; color: #B9B6AE; font-family: inherit; font-size: 11px; font-weight: 700; cursor: pointer">BYP</button></div></div></div>
+
+</section><section style="background: #1C1E21; border: 1px solid #34373D; border-radius: 12px; border-top: 5px solid #63D3C5; padding: 12px 10px; display: flex; flex-direction: column; gap: 10px; min-width: 0">
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 6px">
+<h2 style="margin: 0; font-size: 15px; font-weight: 700; color: #63D3C5; letter-spacing: 0.04em; text-transform: uppercase">Multi</h2>
+</div>
+<div style="display: flex; border: 1px solid #34373D; border-radius: 6px; overflow: hidden"><button type="button" style="flex: 1; height: 28px; border: none; background: #63D3C5; color: #1E1F23; font-family: inherit; font-size: 11px; font-weight: 700; cursor: pointer">VPM</button><button type="button" style="flex: 1; height: 28px; border: none; background: #0E0F11; color: #B9B6AE; font-family: inherit; font-size: 11px; font-weight: 700; cursor: pointer">NOISE</button><button type="button" style="flex: 1; height: 28px; border: none; background: #0E0F11; color: #B9B6AE; font-family: inherit; font-size: 11px; font-weight: 700; cursor: pointer">USER</button></div>
+<div style="background: #191A1D; border-radius: 10px; padding: 10px 4px; display: flex; flex-direction: column; gap: 10px; align-items: center">
+<span style="font-size: 9px; color: #B9B6AE; letter-spacing: 0.12em">PANEL KNOBS</span>
+<div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 90px">
+<div aria-hidden="true" style="width: 52px; height: 52px; border-radius: 50%; background: #26282C; border: 3px solid #63D3C5; box-sizing: border-box; position: relative; transform: rotate(-60deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 14px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap">C2</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">Note</div>
+</div><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 90px">
+<div aria-hidden="true" style="width: 52px; height: 52px; border-radius: 50%; background: #26282C; border: 3px solid #63D3C5; box-sizing: border-box; position: relative; transform: rotate(-15deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 14px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap">45%</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">Index</div>
+</div>
+</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.1em; text-transform: uppercase; padding-top: 4px; border-top: 1px solid #4A4E57">Sound select</div>
+<div style="display: flex; flex-direction: column; gap: 4px">
+<span style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.06em; text-transform: uppercase">Preset</span>
+<button type="button" style="height: 30px; border-radius: 6px; border: 1px dashed #63D3C5; background: #0E0F11; color: #ECEAE4; font-family: inherit; font-size: 12px; text-align: left; padding: 0 9px; cursor: pointer; display: flex; justify-content: space-between; align-items: center"><span>Throat</span><span style="color: #B9B6AE">▾</span></button>
+</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.1em; text-transform: uppercase; padding-top: 4px; border-top: 1px solid #4A4E57">Parameters</div>
+<div style="display: flex; justify-content: space-between; gap: 4px"><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 58px">
+<div aria-hidden="true" style="width: 40px; height: 40px; border-radius: 50%; background: #26282C; border: 3px solid #63D3C5; box-sizing: border-box; position: relative; transform: rotate(-80deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 11px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap">2x</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">Ratio</div>
+</div><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 58px">
+<div aria-hidden="true" style="width: 40px; height: 40px; border-radius: 50%; background: #26282C; border: 3px solid #63D3C5; box-sizing: border-box; position: relative; transform: rotate(-90deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 11px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap">20%</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">Noise</div>
+</div><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 58px">
+<div aria-hidden="true" style="width: 40px; height: 40px; border-radius: 50%; background: #26282C; border: 3px solid #63D3C5; box-sizing: border-box; position: relative; transform: rotate(-100deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 11px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap">AR</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">EG</div>
+</div></div><div style="display: flex; justify-content: space-between; gap: 4px"><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 58px">
+<div aria-hidden="true" style="width: 40px; height: 40px; border-radius: 50%; background: #26282C; border: 3px solid #63D3C5; box-sizing: border-box; position: relative; transform: rotate(-135deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 11px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap">0%</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">Attack</div>
+</div><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 58px">
+<div aria-hidden="true" style="width: 40px; height: 40px; border-radius: 50%; background: #26282C; border: 3px solid #63D3C5; box-sizing: border-box; position: relative; transform: rotate(-40deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 11px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap">35%</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">Release</div>
+</div><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 58px">
+<div aria-hidden="true" style="width: 40px; height: 40px; border-radius: 50%; background: #26282C; border: 3px solid #63D3C5; box-sizing: border-box; position: relative; transform: rotate(60deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 11px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap">+40%</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">Idx Mod</div>
+</div></div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.1em; text-transform: uppercase; padding-top: 4px; border-top: 1px solid #4A4E57">Mix / Route</div>
+<div style="display: flex; justify-content: space-between; gap: 4px"><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 58px">
+<div aria-hidden="true" style="width: 32px; height: 32px; border-radius: 50%; background: #26282C; border: 3px solid #9AA4B4; box-sizing: border-box; position: relative; transform: rotate(0deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 8px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap">C</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">Pan</div>
+</div><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 58px">
+<div aria-hidden="true" style="width: 32px; height: 32px; border-radius: 50%; background: #26282C; border: 3px solid #9AA4B4; box-sizing: border-box; position: relative; transform: rotate(-115deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 8px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap">8%</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">Delay</div>
+</div><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 58px">
+<div aria-hidden="true" style="width: 32px; height: 32px; border-radius: 50%; background: #26282C; border: 3px solid #9AA4B4; box-sizing: border-box; position: relative; transform: rotate(-100deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 8px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap">15%</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">Reverb</div>
+</div></div><div style="display: flex; justify-content: space-between; gap: 4px"><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 58px">
+<div aria-hidden="true" style="width: 32px; height: 32px; border-radius: 50%; background: #26282C; border: 3px dashed #9AA4B4; box-sizing: border-box; position: relative; transform: rotate(0deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 8px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap">0</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">Spread</div>
+</div><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 58px">
+<div aria-hidden="true" style="width: 32px; height: 32px; border-radius: 50%; background: #26282C; border: 3px dashed #9AA4B4; box-sizing: border-box; position: relative; transform: rotate(-135deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 8px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap">0%</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">Sidech</div>
+</div><div style="display: flex; flex-direction: column; gap: 4px; width: 62px; align-items: center"><span style="font-size: 10px; color: #B9B6AE">MASTER</span><div style="display: flex; border: 1px dashed #63D3C5; border-radius: 6px; overflow: hidden"><button type="button" style="flex: 1; height: 28px; border: none; background: #63D3C5; color: #1E1F23; font-family: inherit; font-size: 11px; font-weight: 700; cursor: pointer">ON</button><button type="button" style="flex: 1; height: 28px; border: none; background: #0E0F11; color: #B9B6AE; font-family: inherit; font-size: 11px; font-weight: 700; cursor: pointer">BYP</button></div></div></div>
+
+</section></div>
+<div style="display: flex; gap: 10px"><div style="flex: 1; background: #1C1E21; border: 1px solid #34373D; border-radius: 12px; border-top: 5px solid #9AA4B4; padding: 12px; display: flex; flex-direction: column; gap: 10px">
+<h2 style="margin: 0; font-size: 15px; color: #ECEAE4; letter-spacing: 0.04em; text-transform: uppercase">Delay</h2>
+<div style="display: flex; flex-direction: column; gap: 4px">
+<span style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.06em; text-transform: uppercase">Type</span>
+<button type="button" style="height: 30px; border-radius: 6px; border: 1px dashed #9AA4B4; background: #0E0F11; color: #ECEAE4; font-family: inherit; font-size: 12px; text-align: left; padding: 0 9px; cursor: pointer; display: flex; justify-content: space-between; align-items: center"><span>Tape BPM</span><span style="color: #B9B6AE">▾</span></button>
+</div>
+<div style="display: flex; justify-content: space-between; gap: 4px"><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 58px">
+<div aria-hidden="true" style="width: 40px; height: 40px; border-radius: 50%; background: #26282C; border: 3px solid #9AA4B4; box-sizing: border-box; position: relative; transform: rotate(0deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 11px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap">1/8D</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">Time</div>
+</div><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 58px">
+<div aria-hidden="true" style="width: 40px; height: 40px; border-radius: 50%; background: #26282C; border: 3px solid #9AA4B4; box-sizing: border-box; position: relative; transform: rotate(-20deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 11px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap">45%</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">Feedback</div>
+</div><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 58px">
+<div aria-hidden="true" style="width: 40px; height: 40px; border-radius: 50%; background: #26282C; border: 3px solid #9AA4B4; box-sizing: border-box; position: relative; transform: rotate(-90deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 11px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap">20%</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">Mod</div>
+</div><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 58px">
+<div aria-hidden="true" style="width: 40px; height: 40px; border-radius: 50%; background: #26282C; border: 3px solid #9AA4B4; box-sizing: border-box; position: relative; transform: rotate(20deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 11px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap">60%</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">Tone</div>
+</div><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 58px">
+<div aria-hidden="true" style="width: 40px; height: 40px; border-radius: 50%; background: #26282C; border: 3px solid #9AA4B4; box-sizing: border-box; position: relative; transform: rotate(-70deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 11px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap">30%</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">Level</div>
+</div><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 58px">
+<div aria-hidden="true" style="width: 40px; height: 40px; border-radius: 50%; background: #26282C; border: 3px solid #9AA4B4; box-sizing: border-box; position: relative; transform: rotate(-115deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 11px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap">10%</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">→Reverb</div>
+</div></div>
+</div><div style="flex: 1; background: #1C1E21; border: 1px solid #34373D; border-radius: 12px; border-top: 5px solid #9AA4B4; padding: 12px; display: flex; flex-direction: column; gap: 10px">
+<h2 style="margin: 0; font-size: 15px; color: #ECEAE4; letter-spacing: 0.04em; text-transform: uppercase">Reverb</h2>
+<div style="display: flex; flex-direction: column; gap: 4px">
+<span style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.06em; text-transform: uppercase">Type</span>
+<button type="button" style="height: 30px; border-radius: 6px; border: 1px dashed #9AA4B4; background: #0E0F11; color: #ECEAE4; font-family: inherit; font-size: 12px; text-align: left; padding: 0 9px; cursor: pointer; display: flex; justify-content: space-between; align-items: center"><span>Hall</span><span style="color: #B9B6AE">▾</span></button>
+</div>
+<div style="display: flex; justify-content: space-between; gap: 4px"><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 58px">
+<div aria-hidden="true" style="width: 40px; height: 40px; border-radius: 50%; background: #26282C; border: 3px solid #9AA4B4; box-sizing: border-box; position: relative; transform: rotate(50deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 11px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap">70%</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">Time</div>
+</div><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 58px">
+<div aria-hidden="true" style="width: 40px; height: 40px; border-radius: 50%; background: #26282C; border: 3px solid #9AA4B4; box-sizing: border-box; position: relative; transform: rotate(80deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 11px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap">80%</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">Input</div>
+</div><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 58px">
+<div aria-hidden="true" style="width: 40px; height: 40px; border-radius: 50%; background: #26282C; border: 3px solid #9AA4B4; box-sizing: border-box; position: relative; transform: rotate(10deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 11px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap">55%</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">Bright</div>
+</div><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 58px">
+<div aria-hidden="true" style="width: 40px; height: 40px; border-radius: 50%; background: #26282C; border: 3px solid #9AA4B4; box-sizing: border-box; position: relative; transform: rotate(-80deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 11px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap">25%</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">Level</div>
+</div></div>
+</div><div style="flex: 1; background: #1C1E21; border: 1px solid #34373D; border-radius: 12px; border-top: 5px solid #9AA4B4; padding: 12px; display: flex; flex-direction: column; gap: 10px">
+<h2 style="margin: 0; font-size: 15px; color: #ECEAE4; letter-spacing: 0.04em; text-transform: uppercase">Master</h2>
+<div style="display: flex; flex-direction: column; gap: 4px">
+<span style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.06em; text-transform: uppercase">Type</span>
+<button type="button" style="height: 30px; border-radius: 6px; border: 1px dashed #9AA4B4; background: #0E0F11; color: #ECEAE4; font-family: inherit; font-size: 12px; text-align: left; padding: 0 9px; cursor: pointer; display: flex; justify-content: space-between; align-items: center"><span>Compressor</span><span style="color: #B9B6AE">▾</span></button>
+</div>
+<div style="display: flex; justify-content: space-between; gap: 4px"><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 58px">
+<div aria-hidden="true" style="width: 40px; height: 40px; border-radius: 50%; background: #26282C; border: 3px solid #9AA4B4; box-sizing: border-box; position: relative; transform: rotate(-30deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 11px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap">-18dB</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">Thresh</div>
+</div><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 58px">
+<div aria-hidden="true" style="width: 40px; height: 40px; border-radius: 50%; background: #26282C; border: 3px solid #9AA4B4; box-sizing: border-box; position: relative; transform: rotate(-40deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 11px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap">4</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">Ratio</div>
+</div><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 58px">
+<div aria-hidden="true" style="width: 40px; height: 40px; border-radius: 50%; background: #26282C; border: 3px solid #9AA4B4; box-sizing: border-box; position: relative; transform: rotate(-100deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 11px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap">5ms</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">Attack</div>
+</div><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 58px">
+<div aria-hidden="true" style="width: 40px; height: 40px; border-radius: 50%; background: #26282C; border: 3px solid #9AA4B4; box-sizing: border-box; position: relative; transform: rotate(-60deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 11px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap">120ms</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">Release</div>
+</div><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 58px">
+<div aria-hidden="true" style="width: 40px; height: 40px; border-radius: 50%; background: #26282C; border: 3px solid #9AA4B4; box-sizing: border-box; position: relative; transform: rotate(-40deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 11px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap">3dB</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">Makeup</div>
+</div><div style="display: flex; flex-direction: column; gap: 4px; width: 62px; align-items: center"><span style="font-size: 10px; color: #B9B6AE">SIDECH</span><div style="display: flex; border: 1px dashed #63D3C5; border-radius: 6px; overflow: hidden"><button type="button" style="flex: 1; height: 28px; border: none; background: #0E0F11; color: #B9B6AE; font-family: inherit; font-size: 11px; font-weight: 700; cursor: pointer">OFF</button><button type="button" style="flex: 1; height: 28px; border: none; background: #63D3C5; color: #1E1F23; font-family: inherit; font-size: 11px; font-weight: 700; cursor: pointer">ON</button></div></div></div>
+</div></div>
+<div style="background: #1C1E21; border: 1px solid #34373D; border-radius: 12px; padding: 12px 14px; display: grid; grid-template-columns: 1.4fr 1fr 1.4fr 1fr; gap: 18px">
+<div style="display: flex; flex-direction: column; gap: 8px">
+<span style="font-size: 11px; color: #B9B6AE; letter-spacing: 0.1em">CHOKE GROUPS</span>
+<div style="display: flex; gap: 6px; flex-wrap: wrap">
+<span style="font-size: 12px; padding: 5px 9px; border-radius: 6px; border: 1px dashed #F2D36E; background: #0E0F11">Grp 1 · CH ▸ OH (CH high)</span>
+<span style="font-size: 12px; padding: 5px 9px; border-radius: 6px; border: 1px dashed #8FD48A; background: #0E0F11">Grp 2 · LT / HT</span>
+<button type="button" style="font-size: 12px; padding: 5px 9px; border-radius: 6px; border: 1px solid #34373D; background: #26282C; color: #ECEAE4; font-family: inherit; cursor: pointer">+ Add</button>
+</div></div>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<span style="font-size: 11px; color: #B9B6AE; letter-spacing: 0.1em">AUDIO IN</span>
+<div style="display: flex; gap: 10px; align-items: flex-end"><div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 58px">
+<div aria-hidden="true" style="width: 34px; height: 34px; border-radius: 50%; background: #26282C; border: 3px dashed #ECEAE4; box-sizing: border-box; position: relative; transform: rotate(40deg)">
+<div style="position: absolute; left: 50%; top: 3px; width: 3px; height: 9px; margin-left: -1.5px; border-radius: 2px; background: #ECEAE4"></div>
+</div>
+<div style="font-size: 12px; color: #ECEAE4; font-weight: 600; white-space: nowrap">0 dB</div>
+<div style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap">Level</div>
+</div><div style="display: flex; flex-direction: column; gap: 4px">
+<span style="font-size: 10px; color: #B9B6AE; letter-spacing: 0.06em; text-transform: uppercase">Route</span>
+<button type="button" style="height: 30px; border-radius: 6px; border: 1px dashed #ECEAE4; background: #0E0F11; color: #ECEAE4; font-family: inherit; font-size: 12px; text-align: left; padding: 0 9px; cursor: pointer; display: flex; justify-content: space-between; align-items: center"><span>SIDECH → Master</span><span style="color: #B9B6AE">▾</span></button>
+</div></div></div>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<span style="font-size: 11px; color: #B9B6AE; letter-spacing: 0.1em">INDIVIDUAL OUTS</span>
+<div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px">
+<div style="display: flex; flex-direction: column; gap: 3px"><span style="font-size: 10px; color: #B9B6AE">OUT 1</span><button type="button" style="height: 28px; border-radius: 6px; border: 1px dashed #4A4E57; background: #0E0F11; color: #ECEAE4; font-family: inherit; font-size: 12px; cursor: pointer">BD</button></div><div style="display: flex; flex-direction: column; gap: 3px"><span style="font-size: 10px; color: #B9B6AE">OUT 2</span><button type="button" style="height: 28px; border-radius: 6px; border: 1px dashed #4A4E57; background: #0E0F11; color: #ECEAE4; font-family: inherit; font-size: 12px; cursor: pointer">SD</button></div><div style="display: flex; flex-direction: column; gap: 3px"><span style="font-size: 10px; color: #B9B6AE">OUT 3</span><button type="button" style="height: 28px; border-radius: 6px; border: 1px dashed #4A4E57; background: #0E0F11; color: #ECEAE4; font-family: inherit; font-size: 12px; cursor: pointer">SP1</button></div><div style="display: flex; flex-direction: column; gap: 3px"><span style="font-size: 10px; color: #B9B6AE">OUT 4</span><button type="button" style="height: 28px; border-radius: 6px; border: 1px dashed #4A4E57; background: #0E0F11; color: #ECEAE4; font-family: inherit; font-size: 12px; cursor: pointer">MULTI</button></div>
+</div></div>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<span style="font-size: 11px; color: #B9B6AE; letter-spacing: 0.1em">KIT OPTIONS</span>
+<label style="font-size: 12px; display: flex; gap: 8px; align-items: center"><input type="checkbox" checked="checked" style="accent-color: #63D3C5">Save kit with program</label>
+<label style="font-size: 12px; display: flex; gap: 8px; align-items: center"><input type="checkbox" style="accent-color: #63D3C5">Knob mode: Catch</label>
+</div>
+</div>
+<div data-resize-handles="1" style="display: contents"><div aria-hidden="true" style="position: absolute; left: 3px; top: 3px; border-left: 3px solid; border-top: 3px solid; width: 14px; height: 14px; border-color: #8A8F99; opacity: 0.7; pointer-events: none"></div><div aria-hidden="true" style="position: absolute; right: 3px; top: 3px; border-right: 3px solid; border-top: 3px solid; width: 14px; height: 14px; border-color: #8A8F99; opacity: 0.7; pointer-events: none"></div><div aria-hidden="true" style="position: absolute; left: 3px; bottom: 3px; border-left: 3px solid; border-bottom: 3px solid; width: 14px; height: 14px; border-color: #8A8F99; opacity: 0.7; pointer-events: none"></div><div aria-hidden="true" style="position: absolute; right: 3px; bottom: 3px; border-right: 3px solid; border-bottom: 3px solid; width: 14px; height: 14px; border-color: #8A8F99; opacity: 0.7; pointer-events: none"></div><div aria-hidden="true" style="position: absolute; left: 50%; top: 2px; width: 30px; height: 3px; margin-left: -15px; border-radius: 2px; background: #8A8F99; opacity: 0.6; pointer-events: none"></div><div aria-hidden="true" style="position: absolute; left: 50%; bottom: 2px; width: 30px; height: 3px; margin-left: -15px; border-radius: 2px; background: #8A8F99; opacity: 0.6; pointer-events: none"></div><div aria-hidden="true" style="position: absolute; top: 50%; left: 2px; width: 3px; height: 30px; margin-top: -15px; border-radius: 2px; background: #8A8F99; opacity: 0.6; pointer-events: none"></div><div aria-hidden="true" style="position: absolute; top: 50%; right: 2px; width: 3px; height: 30px; margin-top: -15px; border-radius: 2px; background: #8A8F99; opacity: 0.6; pointer-events: none"></div></div></div><div aria-hidden="true" class="wood-cheek" style="width: 34px; flex: none; align-self: stretch; background: repeating-linear-gradient(92deg,#5B3A22 0 3px,#6E4729 3px 7px,#4E3120 7px 9px,#77502F 9px 14px); box-shadow: inset 4px 0 8px rgba(0,0,0,0.6); border-radius: 0 6px 6px 0"></div></div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1467}}'>
+class Component extends DCLogic {
+renderVals() {
+return {};
+}
+}
+</script>
+</body>
+</html>
