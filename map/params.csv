@@ -1,0 +1,66 @@
+id,group,name,kind,a,b,min,max,def,range_src,hw
+cc_80,Single channel,OH Tune,cc,80,0,0,127,0,assumed,0
+cc_81,Single channel,OH Decay,cc,81,0,0,127,0,assumed,0
+cc_82,Single channel,OH Level,cc,82,0,0,127,0,assumed,0
+cc_12,Single channel,Delay Param 1,cc,12,0,0,127,0,assumed,0
+cc_13,Single channel,Delay Param 2,cc,13,0,0,127,0,assumed,0
+cc_14,Single channel,Delay Param 3,cc,14,0,0,127,0,assumed,0
+cc_83,Single channel,Reverb Return,cc,83,0,0,127,0,assumed,0
+cc_16,Single channel,User Synth Param 1,cc,16,0,0,127,0,assumed,0
+cc_17,Single channel,User Synth Param 2,cc,17,0,0,127,0,assumed,0
+cc_18,Single channel,User Synth Param 3,cc,18,0,0,127,0,assumed,0
+cc_19,Single channel,User Synth Param 4,cc,19,0,0,127,0,assumed,0
+cc_85,Single channel,Reverb Param 1,cc,85,0,0,127,0,assumed,0
+cc_86,Single channel,Reverb Param 2,cc,86,0,0,127,0,assumed,0
+cc_87,Single channel,Reverb Param 3,cc,87,0,0,127,0,assumed,0
+cc_89,Single channel,Reverb Param 4,cc,89,0,0,127,0,assumed,0
+cc_20,Single channel,BD Tune,cc,20,0,0,127,0,assumed,0
+cc_21,Single channel,BD Drive,cc,21,0,0,127,0,assumed,0
+cc_22,Single channel,BD Attack,cc,22,0,0,127,0,assumed,0
+cc_23,Single channel,BD Decay,cc,23,0,0,127,0,assumed,0
+cc_24,Single channel,BD Level,cc,24,0,0,127,0,assumed,0
+cc_91,Single channel,Reverb Level,cc,91,0,0,127,0,assumed,0
+cc_25,Single channel,SD Tune,cc,25,0,0,127,0,assumed,0
+cc_26,Single channel,SD Snap.Lv,cc,26,0,0,127,0,assumed,0
+cc_27,Single channel,SD Snap.Dec,cc,27,0,0,127,0,assumed,0
+cc_28,Single channel,SD Decay,cc,28,0,0,127,0,assumed,0
+cc_29,Single channel,SD Level,cc,29,0,0,127,0,assumed,0
+cc_92,Single channel,Delay Level,cc,92,0,0,127,0,assumed,0
+cc_44,Single channel,Delay Return,cc,44,0,0,127,0,assumed,0
+cc_45,Single channel,Delay Reverb Send,cc,45,0,0,127,0,assumed,0
+cc_102,Single channel,SP1 Tune,cc,102,0,0,127,0,assumed,0
+cc_103,Single channel,SP1 Attack,cc,103,0,0,127,0,assumed,0
+cc_104,Single channel,SP1 Decay,cc,104,0,0,127,0,assumed,0
+cc_105,Single channel,SP1 Level,cc,105,0,0,127,0,assumed,0
+cc_46,Single channel,LT Tune,cc,46,0,0,127,0,assumed,0
+cc_47,Single channel,LT Detune,cc,47,0,0,127,0,assumed,0
+cc_48,Single channel,LT Decay,cc,48,0,0,127,0,assumed,0
+cc_49,Single channel,LT Level,cc,49,0,0,127,0,assumed,0
+cc_106,Single channel,SP2 Tune,cc,106,0,0,127,0,assumed,0
+cc_107,Single channel,SP2 Attack,cc,107,0,0,127,0,assumed,0
+cc_108,Single channel,SP2 Decay,cc,108,0,0,127,0,assumed,0
+cc_109,Single channel,SP2 Level,cc,109,0,0,127,0,assumed,0
+cc_50,Single channel,HT Tune,cc,50,0,0,127,0,assumed,0
+cc_51,Single channel,HT Detune,cc,51,0,0,127,0,assumed,0
+cc_52,Single channel,HT Decay,cc,52,0,0,127,0,assumed,0
+cc_53,Single channel,HT Level,cc,53,0,0,127,0,assumed,0
+cc_110,Single channel,VPM Note,cc,110,0,0,127,0,assumed,0
+cc_111,Single channel,VPM Index,cc,111,0,0,127,0,assumed,0
+cc_112,Single channel,VPM Ratio,cc,112,0,0,127,0,assumed,0
+cc_113,Single channel,VPM EG,cc,113,0,0,127,0,assumed,0
+cc_114,Single channel,VPM Attack,cc,114,0,0,127,0,assumed,0
+cc_115,Single channel,VPM Release,cc,115,0,0,127,0,assumed,0
+cc_54,Single channel,Multi Level,cc,54,0,0,127,0,assumed,0
+cc_116,Single channel,Noise Color,cc,116,0,0,127,0,assumed,0
+cc_117,Single channel,Noise Attack,cc,117,0,0,127,0,assumed,0
+cc_118,Single channel,Noise Release,cc,118,0,0,127,0,assumed,0
+cc_119,Single channel,Noise Peak,cc,119,0,0,127,0,assumed,0
+cc_55,Single channel,RS Tune,cc,55,0,0,127,0,assumed,0
+cc_56,Single channel,RS Decay,cc,56,0,0,127,0,assumed,0
+cc_57,Single channel,RS Level,cc,57,0,0,127,0,assumed,0
+cc_58,Single channel,CP Tune,cc,58,0,0,127,0,assumed,0
+cc_59,Single channel,CP Decay,cc,59,0,0,127,0,assumed,0
+cc_60,Single channel,CP Level,cc,60,0,0,127,0,assumed,0
+cc_61,Single channel,CH Tune,cc,61,0,0,127,0,assumed,0
+cc_62,Single channel,CH Decay,cc,62,0,0,127,0,assumed,0
+cc_63,Single channel,CH Level,cc,63,0,0,127,0,assumed,0

@@ -2,7 +2,14 @@
 
 Controller for the Korg drumlogue.
 
+## Done
+- [x] Plugin skeleton: parameter map from the manual, CC and NRPN send/receive, host automation, cat-ui look, CI on three systems
+
 ## Next
+- [ ] Test every map entry on the real device and flip it to verified (`hw` column in map/params.csv)
+- [ ] Test the VST3 in Bitwig and Studio One on Linux
+- [ ] Two-CC controls: find out which CC is the coarse one on the device
+
 - [ ] See all sound controls at once ("Show all parts" in the Sound page mockup), default one part at a time
 - [ ] Real MIDI I/O behind sequencer, sound, FX and mixer pages
 
