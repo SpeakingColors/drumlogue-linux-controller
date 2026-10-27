@@ -1,0 +1,30 @@
+[
+ {
+  "title": "drumlogue Controller",
+  "img": "gallery_1.png",
+  "file": "Main.dc.html",
+  "w": 1524,
+  "h": 799
+ },
+ {
+  "title": "drumlogue Controller · Sound",
+  "img": "gallery_2.png",
+  "file": "Sound.dc.html",
+  "w": 1574,
+  "h": 861
+ },
+ {
+  "title": "drumlogue Controller · FX",
+  "img": "gallery_3.png",
+  "file": "FX.dc.html",
+  "w": 1348,
+  "h": 1161
+ },
+ {
+  "title": "drumlogue Controller · Mixer",
+  "img": "gallery_4.png",
+  "file": "Mixer.dc.html",
+  "w": 1453,
+  "h": 849
+ }
+]
