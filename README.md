@@ -13,7 +13,7 @@ Controller plugin for the Korg drumlogue on Linux.
 ## Status
 **Early build v0.1 (pre-release on the Releases page).** A MIDI controller plugin (VST3 and standalone) that sends and receives the CC messages listed in [map/params.csv](map/params.csv).
 
-- 65 parameters, taken from: Korg drumlogue (owner manual MIDI chart, single channel mode).
+- 65 parameters, taken from: Korg drumlogue (owner manual MIDI Implementation Chart, single channel mode, version 1.01). Multi channel mode is not supported yet. Only the selected MIDI channel is read; other MIDI passes through.
 - **None are tested on the real device yet.** The map only holds what the source above lists; ranges the manual does not print are assumed to be 0 to 127 and are marked that way in the plugin.
 - No SysEx and no patch librarian yet.
 - Not tested in a DAW yet. Builds in CI on Linux, Windows and macOS.

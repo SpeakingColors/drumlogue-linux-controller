@@ -54,16 +54,25 @@ public:
     {
         juce::ScopedNoDenormals nd; audio.clear();
         // 1. incoming from the device: CC messages are consumed here, everything else passes through unchanged
-        juce::MidiBuffer passthru; const int inCh = channelParam->get();
+        // Only the selected MIDI channel is read. A CC that is in the map, or part of an NRPN, is consumed;
+        // any other CC (mod wheel, sustain, other channels) passes through unchanged.
+        const int rxCh = channelParam->get();
+        juce::MidiBuffer passthru;
         for (const auto meta : midi)
         {
             const auto msg = meta.getMessage();
-            if (msg.isController() && ctl::channelMatches(msg.getChannel(), inCh))
+            bool consumed = false;
+            if (msg.isController() && ctl::channelMatches(msg.getChannel(), rxCh))
             {
-                if (auto e = decoder.feedCC(msg.getControllerNumber(), msg.getControllerValue()))
+                const int num = msg.getControllerNumber();
+                if (auto e = decoder.feedCC(num, msg.getControllerValue()))
+                {
+                    consumed = true;
                     for (size_t i = 0; i < slots.size(); ++i) if (slots[i].map == e->paramIndex) { incoming[i] = e->value; break; }
+                }
+                else consumed = ctl::Decoder::isNrpnController(num);
             }
-            else passthru.addEvent(msg, meta.samplePosition);
+            if (!consumed) passthru.addEvent(msg, meta.samplePosition);
         }
         midi.swapWith(passthru);
         // 2. outgoing: changed parameters, a few per block
@@ -195,7 +204,7 @@ private:
         delete existing; if (row < 0 || row >= int(shown.size())) return nullptr;
         auto& s = proc.slots[size_t(shown[size_t(row)])]; auto& m = proc.mapRes.params[size_t(s.map)];
         juce::String addr = m.kind == ctl::Kind::CC ? "CC " + juce::String(m.a) : "NRPN " + juce::String(m.a) + ":" + juce::String(m.b);
-        return new ParamRow(*s.param, addr + (m.rangeFromManual ? ", range from the manual" : ", range 0 to 127 assumed") + (m.hwVerified ? ", tested on hardware" : ", not tested on hardware yet"));
+        return new ParamRow(*s.param, addr + (m.rangeFromManual ? ", range from the manual" : ", range 0 to 127 assumed") + (m.hwVerified ? ", tested on hardware" : ", not tested on hardware yet") + (m.source.empty() ? juce::String() : ", source: " + juce::String(m.source)));
     }
     void rebuild()
     {

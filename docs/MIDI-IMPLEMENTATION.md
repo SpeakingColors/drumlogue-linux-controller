@@ -84,6 +84,13 @@ Each part gets its own channel (default 1 to 12; any continuous range can be set
 
 Part 11 shares CC numbers 108 to 115 (VPM) with part 10 (106 to 110) and part 12 uses 16 to 31 ranges for its own FX; this works because channels differ. The plugin must always send on the part's channel.
 
+## Status in the plugin
+
+- Checked 2026-11 against the official English Owner's Manual PDF (Korg download, drumlogue, p60 single channel chart and p61 multi channel chart, version 1.01, 2022-05-16). Korg publishes no separate drumlogue MIDI Implementation file; the charts are in the manual. All 65 CC numbers and names in map/params.csv match the single channel chart. Ranges are not printed, so 0 to 127 is assumed. Untested on hardware.
+- The plugin supports single channel mode only: all CCs go out on the one selected channel. Multi channel mode (one channel per part, same CC numbers meaning different things per channel) is not supported yet.
+- Not in the map: Master Volume CC 7 and 39 (the charts say MSB and LSB but not how they combine), CC 120 and 121 (receive only), Program Change.
+- Incoming CC on other channels and CCs that are not in the map pass through the plugin unchanged. "Send all" sends the defaults (0), so use it with care.
+
 ## Open items
 
 1. CC value ranges, MSB/LSB use for the 14-bit master volume (7 and 39), and FX param meanings per effect type are not in the charts.

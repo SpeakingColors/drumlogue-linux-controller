@@ -16,6 +16,7 @@ enum class Kind { CC, NRPN, Pair };   // Pair = two CCs that form one value; the
 struct Param
 {
     std::string id, group, name;
+    std::string source;             // where the number comes from: "official: <doc>", "owner capture" or "UNVERIFIED"
     Kind kind = Kind::CC;
     int a = 0;        // CC number, or NRPN MSB, or first CC of a pair
     int b = 0;        // NRPN LSB, or second CC of a pair
@@ -49,7 +50,7 @@ inline bool toInt(const std::string& s, int& v)
     v = std::stoi(s); return true;
 }
 
-// Columns: id,group,name,kind,a,b,min,max,def,range_src,hw
+// Columns: id,group,name,kind,a,b,min,max,def,range_src,hw[,source]  (source is optional)
 inline ParseResult parseMap(const std::string& text)
 {
     ParseResult r; std::istringstream in(text); std::string line; int ln = 0; std::set<std::string> ids; std::set<std::string> addr;
@@ -57,14 +58,14 @@ inline ParseResult parseMap(const std::string& text)
     {
         ++ln; if (line.empty() || line[0] == '#' || line.rfind("id,", 0) == 0) continue;
         auto f = splitCsv(line); auto err = [&](const std::string& m) { r.errors.push_back("line " + std::to_string(ln) + ": " + m); };
-        if (f.size() != 11) { err("expected 11 columns"); continue; }
+        if (f.size() != 11 && f.size() != 12) { err("expected 11 or 12 columns"); continue; }
         Param p; p.id = f[0]; p.group = f[1]; p.name = f[2];
         if (p.id.empty() || p.name.empty()) { err("empty id or name"); continue; }
         if (f[3] == "cc") p.kind = Kind::CC; else if (f[3] == "nrpn") p.kind = Kind::NRPN; else if (f[3] == "pair") p.kind = Kind::Pair; else { err("unknown kind"); continue; }
         if (!toInt(f[4], p.a) || !toInt(f[5], p.b) || !toInt(f[6], p.minV) || !toInt(f[7], p.maxV) || !toInt(f[8], p.defV)) { err("bad number"); continue; }
         if (p.a < 0 || p.a > 127 || p.b < 0 || p.b > 127) { err("number outside 0..127"); continue; }
         if (p.minV < 0 || p.maxV > 127 || p.minV > p.maxV || p.defV < p.minV || p.defV > p.maxV) { err("bad range"); continue; }
-        p.rangeFromManual = f[9] == "manual"; p.hwVerified = f[10] == "1";
+        p.rangeFromManual = f[9] == "manual" || f[9] == "official"; p.hwVerified = f[10] == "1"; if (f.size() == 12) p.source = f[11];
         if (!ids.insert(p.id).second) { err("duplicate id " + p.id); continue; }
         std::string key = std::to_string(int(p.kind)) + ":" + std::to_string(p.a) + ":" + std::to_string(p.kind == Kind::CC ? 0 : p.b);
         if (!addr.insert(key).second) { err("duplicate address for " + p.id); continue; }
@@ -106,6 +107,7 @@ class Decoder
 public:
     explicit Decoder(const std::vector<Param>& map) : params(map) {}
     void reset() { msb = lsb = -1; }
+    static bool isNrpnController(int num) { return num == 99 || num == 98 || num == 6; }   // only these are swallowed when they map to nothing
     std::optional<Event> feedCC(int num, int val)
     {
         if (num == 99) { msb = val; return std::nullopt; }

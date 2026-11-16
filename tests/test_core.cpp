@@ -29,6 +29,9 @@ int main(int argc, char** argv)
     CHECK(!parseMap("cc_1,g,n,cc,1,0,0,127,0,manual,0\ncc_2,g,n2,cc,1,0,0,127,0,manual,0\n").errors.empty());   // same address
     CHECK(!parseMap("cc_1,g,n,cc,1,0,5,3,0,manual,0\n").errors.empty());
     CHECK(!parseMap("cc_1,g,n,wat,1,0,0,127,0,manual,0\n").errors.empty());
+    // optional source column and "official" range tag
+    { auto rs = parseMap("cc_1,g,n,cc,1,0,0,127,0,official,0,\"official: doc\"\n"); CHECK(rs.errors.empty() && rs.params.size() == 1 && rs.params[0].source == "official: doc" && rs.params[0].rangeFromManual); }
+    CHECK(Decoder::isNrpnController(99) && Decoder::isNrpnController(98) && Decoder::isNrpnController(6) && !Decoder::isNrpnController(1));
     // decoding
     Decoder d(r.params);
     auto e = d.feedCC(5, 64); CHECK(e && e->paramIndex == 0 && e->value == 64);
