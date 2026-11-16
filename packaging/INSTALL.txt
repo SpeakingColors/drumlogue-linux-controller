@@ -1,4 +1,4 @@
-drumlogue Controller install, remove and use (works fully offline)
+drumlogue Controller install, remove and use
 =====================================================
 
 Windows

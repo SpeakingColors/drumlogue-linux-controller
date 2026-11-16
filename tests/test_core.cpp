@@ -36,6 +36,7 @@ int main(int argc, char** argv)
     { auto e2 = d.feedCC(6, 1); CHECK(e2 && e2->paramIndex == 1 && e2->value == 1); }   // standard: a second data entry hits the same NRPN
     { Decoder fresh(r.params); CHECK(!fresh.feedCC(6, 1)); }                            // data entry with no NRPN selected is ignored
     CHECK(!d.feedCC(77, 1));                                  // unknown CC
+    CHECK(channelMatches(3, 3) && !channelMatches(4, 3) && channelMatches(16, 99) && channelMatches(1, -2));
     // round trip
     for (const auto& p : r.params) if (p.kind != Kind::Pair)
     {

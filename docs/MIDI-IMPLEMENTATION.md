@@ -89,3 +89,10 @@ Part 11 shares CC numbers 108 to 115 (VPM) with part 10 (106 to 110) and part 12
 1. CC value ranges, MSB/LSB use for the 14-bit master volume (7 and 39), and FX param meanings per effect type are not in the charts.
 2. SysEx layout: Korg exclusive format is not in the manual; the logue SDK covers units, not patch data **(check)**.
 3. Internal swing is not reachable over MIDI per our earlier notes; the charts do not list it.
+
+## Verification status
+
+- Source named above: Korg drumlogue Owner's Manual E4 (02/2025), MIDI Implementation Charts version 1.01 (2022-05-16). The tables in this file were transcribed earlier; at the last review the manual PDF could not be downloaded, so they were not re-checked line by line against the PDF. They were checked only against map/params.csv (all 65 rows match the single channel table above).
+- Status of every row in map/params.csv: "documented" (listed in the chart as transcribed here) for the CC number and function; value range 0 to 127 is "untested" (assumed, `range_src=assumed`); nothing is "captured" from a real device (`hw=0` for all rows).
+- Not in the map on purpose: CC 7 and 39 (Master Volume MSB/LSB; the 14-bit use is not documented), CC 10 and all multi channel per-part CCs (the plugin has one channel setting, so multi channel mode is not supported yet), SysEx, program change, transport.
+- Incoming CC is only mapped when it arrives on the plugin's selected channel; other channels pass through.

@@ -95,6 +95,9 @@ inline std::vector<Msg> encode(const Param& p, int ch, int val)
     return {};
 }
 
+// Incoming controllers are only mapped when they arrive on the selected channel (1..16); other channels pass through.
+inline bool channelMatches(int msgCh, int selected) { return msgCh == std::clamp(selected, 1, 16); }
+
 struct Event { int paramIndex = -1; int value = 0; };
 
 // Turns incoming CC messages into parameter events. Follows the NRPN CC 99 / 98 / 6 sequence.

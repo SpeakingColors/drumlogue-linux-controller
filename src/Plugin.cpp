@@ -54,11 +54,11 @@ public:
     {
         juce::ScopedNoDenormals nd; audio.clear();
         // 1. incoming from the device: CC messages are consumed here, everything else passes through unchanged
-        juce::MidiBuffer passthru;
+        juce::MidiBuffer passthru; const int inCh = channelParam->get();
         for (const auto meta : midi)
         {
             const auto msg = meta.getMessage();
-            if (msg.isController())
+            if (msg.isController() && ctl::channelMatches(msg.getChannel(), inCh))
             {
                 if (auto e = decoder.feedCC(msg.getControllerNumber(), msg.getControllerValue()))
                     for (size_t i = 0; i < slots.size(); ++i) if (slots[i].map == e->paramIndex) { incoming[i] = e->value; break; }
@@ -177,7 +177,7 @@ public:
         for (auto* w : std::initializer_list<juce::Component*>{ &group, &filter, &sendAll, &chLabel, &chSlider, &status, &list }) c.addAndMakeVisible(w);
         list.setModel(this); list.setRowHeight(30);
         frame.header().onInfo = [this] { juce::AlertWindow::showMessageBoxAsync(juce::MessageBoxIconType::InfoIcon, "drumlogue Controller",
-            "Free and open source by Studio 87. Values come from the maker's manual. Nothing is sent that is not in the map, and nothing is invented. Support: ko-fi.com/studio87"); };
+            "Free and open source by Studio 87. Values come from the maker's manual. Only parameters listed in the map are sent. Support: ko-fi.com/studio87"); };
         rebuild(); setResizable(true, true); getConstrainer()->setFixedAspectRatio(760.0 / 560.0); setResizeLimits(380, 280, 1900, 1400); setSize(760, 560);
     }
     void resized() override
